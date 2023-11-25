@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import django_heroku
-import dj_databse_url
+import import dj_databse_url
 from decouple import config
 
 
