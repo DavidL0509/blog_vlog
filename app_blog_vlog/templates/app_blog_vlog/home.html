@@ -19,6 +19,9 @@
         <a href="{% url m.url_name %}">{{ m.title }}</a></li>
     </li>
     {% endfor %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li> 
+    {% endif %}     
 </ul>
 <h1>{{ title }}</h1>
 
@@ -33,7 +36,7 @@
         <hr>
         {% endif %}
     </li>
-    {% endfor %}   
+    {% endfor %} 
 </ul> 
 </body>
 </html>

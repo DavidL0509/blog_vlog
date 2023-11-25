@@ -8,6 +8,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from .forms import CustomUserCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -29,7 +30,7 @@ def show_post(request, post_id):
 
 
 
-@login_required
+@login_required(login_url='/login/')
 def add_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -90,4 +91,13 @@ def delete_post(request, post_id):
     post = get_object_or_404(Blog_Vlog_Post, pk=post_id, author=request.user)
     post.delete()
     return redirect('edit_delete')
+
+
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
+
 

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('post/<int:post_id>/', views.show_post, name='show_post'),
     path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
 ]
