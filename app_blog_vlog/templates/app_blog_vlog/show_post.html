@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Author: {{ post.author }}</p>
+    <p>Published on: {{ post.created_on|date:"F j, Y H:i" }}</p>
+    <p>{{ post.content }}</p>
+
+    {% if post.image %}
+        <div>
+            <img src="{{ post.image.url }}"
+            width=600>
+        </div>
+    {% endif %}
+
+    {% if post.video %}
+        <div>
+            <video width="720" height="480" controls>
+                <source src="{{ post.video.url }}" type="video/mp4">
+            </video>
+        </div>
+    {% endif %}
+{% endblock %}

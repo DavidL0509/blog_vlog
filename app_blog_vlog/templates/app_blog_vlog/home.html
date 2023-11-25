@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #d4d4d4;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="{% url 'home' %}">Home Page</a></li>
+    {% for m in menu %}
+    {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
+        <a href="{% url m.url_name %}">{{ m.title }}</a></li>
+    </li>
+    {% endfor %}
+</ul>
+<h1>{{ title }}</h1>
+
+<ul>
+    {% for p in posts %}
+    <li>
+        <h2>{{ p.title }}</h2>
+        <p>Author: {{ p.author }}</p>
+        <p>Published on: {{ p.created_on|date:"F j, Y H:i" }}</p>
+        <p><a href="{% url 'post' p.id %}">Read Post</a></p>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+    </li>
+    {% endfor %}   
+</ul> 
+</body>
+</html>
