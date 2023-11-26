@@ -45,7 +45,7 @@ def add_post(request):
 
 
 
-@login_required
+@login_required(login_url='/login/')
 def edit_delete(request):
     user_posts = Blog_Vlog_Post.objects.filter(author=request.user)
     data3 = {'title': 'Edit/Delete Post', 'user_posts': user_posts}
