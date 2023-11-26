@@ -5,7 +5,7 @@
     <p>Author: {{ post.author }}</p>
     <p>Published on: {{ post.created_on|date:"F j, Y H:i" }}</p>
     
-    <!-- Display post content -->
+    
     <div>{{ post.content|safe }}</div>
 
     {% if post.image %}
@@ -22,7 +22,7 @@
         </div>
     {% endif %}
 
-    <!-- Display existing comments -->
+    
     <h2>Comments</h2>
     {% for comment in post.comments.all %}
         <p>{{ comment.author.username }} - {{ comment.created_on|date:"F j, Y H:i" }}</p>
@@ -30,7 +30,7 @@
         <hr>
     {% endfor %}
 
-    <!-- Add a new comment form -->
+    
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'add_comment' post.id %}">
             {% csrf_token %}
