@@ -101,3 +101,19 @@ def user_logout(request):
     return redirect('home')
 
 
+from .models import Comment
+
+# Add this function to handle comment submission
+@login_required(login_url='/login/')
+def add_comment(request, post_id):
+    post = get_object_or_404(Blog_Vlog_Post, pk=post_id)
+    
+    if request.method == 'POST':
+        text = request.POST.get('comment_text')
+        Comment.objects.create(post=post, author=request.user, text=text)
+        return redirect('show_post', post_id=post_id)
+    
+    return render(request, 'app_blog_vlog/show_post.html', {'post': post})
+
+
+

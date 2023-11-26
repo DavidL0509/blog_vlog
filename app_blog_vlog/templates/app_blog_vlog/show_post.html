@@ -4,12 +4,13 @@
     <h1>{{ post.title }}</h1>
     <p>Author: {{ post.author }}</p>
     <p>Published on: {{ post.created_on|date:"F j, Y H:i" }}</p>
-    <p>{{ post.content }}</p>
+    
+    <!-- Display post content -->
+    <div>{{ post.content|safe }}</div>
 
     {% if post.image %}
         <div>
-            <img src="{{ post.image.url }}"
-            width=600>
+            <img src="{{ post.image.url }}" width="600">
         </div>
     {% endif %}
 
@@ -19,5 +20,26 @@
                 <source src="{{ post.video.url }}" type="video/mp4">
             </video>
         </div>
+    {% endif %}
+
+    <!-- Display existing comments -->
+    <h2>Comments</h2>
+    {% for comment in post.comments.all %}
+        <p>{{ comment.author.username }} - {{ comment.created_on|date:"F j, Y H:i" }}</p>
+        <p>{{ comment.text }}</p>
+        <hr>
+    {% endfor %}
+
+    <!-- Add a new comment form -->
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'add_comment' post.id %}">
+            {% csrf_token %}
+            <label for="comment_text">Add a comment:</label>
+            <textarea name="comment_text" rows="4" cols="50"></textarea>
+            <br>
+            <button type="submit">Add Comment</button>
+        </form>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to add comments.</p>
     {% endif %}
 {% endblock %}
